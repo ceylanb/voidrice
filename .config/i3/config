@@ -225,10 +225,10 @@ bindsym $mod+Shift+XF86Back	move container to workspace prev
 bindsym $mod+XF86Forward	workspace next
 bindsym $mod+Shift+XF86Forward	move container to workspace next
 bindsym $mod+semicolon		workspace next
-#bindsym $mod+apostrophe	split horizontal ;; exec $term
-#bindsym $mod+slash		split vertical ;; exec $term
-bindsym $mod+Shift+slash	kill
-bindsym $mod+backslash		workspace back_and_forth
+bindsym $mod+scedilla	        split horizontal ;; exec $term
+bindsym $mod+gbreve		split vertical ;; exec $term
+bindsym $mod+Shift+gbreve	kill
+bindsym $mod+asterisk		workspace back_and_forth
 
 set $ws1 "1"
 set $ws2 "2"
@@ -243,12 +243,12 @@ set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1		workspace $ws1
-bindcode $mod+11	workspace $ws2
+bindsym $mod+2		workspace $ws2
 bindsym $mod+3		workspace $ws3
 bindsym $mod+4		workspace $ws4
 bindsym $mod+5		workspace $ws5
 bindsym $mod+6		workspace $ws6
-bindcode $mod+16	workspace $ws7
+bindsym $mod+7		workspace $ws7
 bindsym $mod+8		workspace $ws8
 bindsym $mod+9		workspace $ws9
 bindsym $mod+0		workspace $ws10
