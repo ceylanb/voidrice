@@ -1,0 +1,5 @@
+color "type=HEADINGS fg=BLACK bg=YELLOW bold=1"
+set overlap
+set numeric
+set xlsx_readformulas
+set autocalc
