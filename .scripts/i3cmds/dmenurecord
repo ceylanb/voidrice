@@ -51,6 +51,16 @@ video() { ffmpeg \
 	updateicon "⏺️"
 	}
 
+video_test() { ffmpeg \
+	-f x11grab \
+	-s $(xrandr | grep -oP '\s(connected) (primary )?(\S*)' | awk 'NF>1{print $NF}' | sed $1'q;d'| cut -d'+' -f1) \
+	-i :0.0+$(xrandr | grep -oP '\s(connected) (primary )?(\S*)' | awk 'NF>1{print $NF}' | sed $1'q;d'| cut -d'+' -f2) \
+ 	-c:v libx264 -qp 0 -r 30 \
+	"$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	echo $! > /tmp/recordingpid
+	updateicon "⏺️"
+	}
+
 webcamhidef() { ffmpeg \
 	-f v4l2 \
 	-i /dev/video0 \
@@ -80,11 +90,13 @@ audio() { \
 	}
 
 askrecording() { \
-	choice=$(printf "screencast\\nvideo\\naudio\\nwebcam\\nwebcam (hi-def)" | dmenu -i -p "Select recording style:")
+	choice=$(printf "screencast\\nvideo\\nvideo_vga\\nvideo_hdmi\\naudio\\nwebcam\\nwebcam (hi-def)" | dmenu -i -p "Select recording style:")
 	case "$choice" in
 		screencast) screencast;;
 		audio) audio;;
 		video) video;;
+		video_vga) video_test "2";;
+		video_hdmi) video_test "1";;
 		webcam) webcam;;
 		"webcam (hi-def)") webcamhidef;;
 	esac
@@ -100,6 +112,8 @@ case "$1" in
 	screencast) screencast;;
 	audio) audio;;
 	video) video;;
+	video_vga) video_test 2;;
+	video_hdmi) video_test 1;;
 	kill) killrecording;;
 	*) ([ -f /tmp/recordingpid ] && asktoend && exit) || askrecording;;
 esac
